@@ -1,145 +1,261 @@
 <!DOCTYPE html>
+<!--
+    Aura — Smart Desk Lamp
+    Clean, accessible, and well-structured static landing page.
+    Files:
+    - index.html  (markup)
+    - style.css   (styles)
+    - main.js     (interactive behavior)
+-->
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="/style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>odinlanding</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Aura — Smart Desk Lamp</title>
 </head>
 
-<body>
+<body id="top">
 
     <header>
-        <div class="inner-column">
-           <h1>Header logo</h1>
-           <nav>
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
+        <div class="inner-column header-row">
+           <div class="brand">
+               <div class="brand-text">
+                   <h1><a href="#top" class="brand-link">Aura</a></h1>
+                   <p class="tag">Smart Desk Lamp</p>
+               </div>
+           </div>
+           <nav class="main-nav">
+            <a href="#features">Features</a>
+            <a href="#specs">Specs</a>
+            <a href="#reviews">Reviews</a>
            </nav>
+           <button id="menuButton" class="menu-button" aria-expanded="false" aria-controls="mobileNav" aria-label="Open menu">
+               <span class="hamburger" aria-hidden="true">
+                   <span class="bar bar1"></span>
+                   <span class="bar bar2"></span>
+                   <span class="bar bar3"></span>
+               </span>
+           </button>
+           <div class="cart">
+               <button id="cartButton" aria-label="View cart">🛒 <span id="cartCount" class="badge" aria-live="polite">0</span></button>
+               <div id="cartPanel" class="cart-panel" aria-hidden="true" role="dialog" aria-modal="false" tabindex="-1" aria-labelledby="cartTitle">
+                   <div class="cart-panel-inner">
+                       <h4 id="cartTitle">Your cart</h4>
+                       <ul id="cartItems" class="cart-items"></ul>
+                       <div class="cart-footer">
+                           <div class="cart-total" aria-live="polite" aria-atomic="true">Total: <span id="cartTotal">$0</span></div>
+                           <div class="cart-actions">
+                               <button id="checkoutBtn" class="button primary">Checkout</button>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
         </div>
     </header>
 
+    <!-- Mobile nav (hidden on desktop) -->
+    <nav id="mobileNav" class="mobile-nav" aria-hidden="true">
+        <div class="mobile-nav-inner">
+            <a href="#features" class="mobile-link">Features</a>
+            <a href="#specs" class="mobile-link">Specs</a>
+            <a href="#reviews" class="mobile-link">Reviews</a>
+        </div>
+    </nav>
+
     <main>
-        <section class="welcome">
-            <div class="inner-column">
-                
-                <div class="graphic-diptych">
-
-                    <div class="picture">
-                        <img src="https://via.placeholder.com/400" alt="placeholder">
+        <section class="hero">
+            <div class="inner-column hero-grid">
+                <div class="hero-media">
+                    <div id="productImage" class="product-image" aria-hidden="true">
+                        <!-- Product visuals are applied via CSS background-image in `main.js` for
+                             consistent rounding and transitions across art assets. A visible
+                             <img> fallback was removed to avoid layout inconsistencies. -->
                     </div>
-            
-                    <div class="text-content">
-                        <h1 class="loud-voice">This website is <br>awesome</h1>
-                        <p>This is a paragraph of text to
-                           support the welcome area stuff</p>
-
-                        <a href="#" class="button">Call to action</a>
+                    <div class="color-swatch-row">
+                        <button class="color-swatch" data-color="matte-black" title="Matte Black" style="background:#222"></button>
+                        <button class="color-swatch" data-color="soft-white" title="Soft White" style="background:#f3f3f1"></button>
+                        <button class="color-swatch" data-color="sand" title="Sand" style="background:#d8c4b0"></button>
                     </div>
                 </div>
-            </div>
-        </section> 
 
-        <section>
-            <div class="inner-column">
-                
-                <div class="products-grid">
-                    <div>
-                        <h2 class="loud-voice">Our products</h2>
+                <div class="hero-copy">
+                    <h2 class="loud-voice">Aura Desk Lamp</h2>
+                    <p class="calm-voice lead">Light that adapts to your focus.</p>
+                    <p class="calm-voice" style="margin-top:8px;">Automatically adjusts brightness and warmth throughout the day to help reduce eye strain and keep you focused.</p>
+
+                    <div class="purchase-panel">
+                        <div class="variant-selector" role="tablist" aria-label="Product variants">
+                            <button class="variant active" data-variant="standard">Aura Standard</button>
+                            <button class="variant" data-variant="pro">Aura Pro <span class="recommended">(Recommended)</span></button>
+                        </div>
+
+                        <div class="price-row">
+                            <div class="price" id="price">$149</div>
+                            <div class="meta">Free shipping · 30-day returns</div>
+                        </div>
+
+                        <div class="cta-row">
+                            <button id="addToCart" class="button primary">Add Aura to your desk</button>
+                        </div>
+
+                        <div id="upgradeNote" class="upgrade-note" aria-hidden="true">Most customers choose Aura Pro for automatic lighting and smart control.</div>
                     </div>
-
-                    <ul class="product-list">
-                        <li class="product">
-
-                            <div class="product-card">
-                                <div class="picture">
-                                    <img src="https://via.placeholder.com/400" alt="placeholder">
-                                </div>
-                        
-                                <div class="text-content">
-                                    <p>This is some subtext under an illustration or image</p>
-                                </div>
-                            </div>
-
-                        </li>
-
-                        <li class="product">
-
-                            <div class="product-card">
-                                <div class="picture">
-                                    <img src="https://via.placeholder.com/400" alt="placeholder">
-                                </div>
-                        
-                                <div class="text-content">
-                                    <p>This is some subtext under an illustration or image</p>
-                                </div>
-                            </div>
-
-                        </li>
-
-                        <li class="product">
-
-                            <div class="product-card">
-                                <div class="picture">
-                                    <img src="https://via.placeholder.com/400" alt="placeholder">
-                                </div>
-                        
-                                <div class="text-content">
-                                    <p>This is some subtext under an illustration or image</p>
-                                </div>
-                            </div>
-
-                        </li>
-
-                        <li class="product">
-
-                            <div class="product-card">
-                                <div class="picture">
-                                    <img src="https://via.placeholder.com/200" alt="placeholder">
-                                </div>
-                        
-                                <div class="text-content">
-                                    <p>This is some subtext under an illustration or image</p>
-                                </div>
-                            </div>
-
-                        </li>
-                    </ul>
-                </div>
-
-            </div>
-        </section>
-
-        <section class="quote-section">
-            <div class="inner-column">
-                <div class="quote">
-                    <h3 class="loud-voice">This is an inspiring quote, or a testimonial from a 
-                       customer. Maybe it's just filling up space, or maybe
-                       people will actually read it. Who knows? All I know
-                       is that it looks nice.
-                    </h3>
-                    <h4 class="calm-voice">-Thor, God of Thunder</h4>
                 </div>
             </div>
         </section>
 
-        <section class="call-to-action">
+        <section id="features" class="features">
             <div class="inner-column">
-                <div class="cta-box">
-                    <div class="text-container">
-                        <h3 class="loud-voice">Call to action! It's time!</h3>
-                        <h4 class="calm-voice">Sign up for our product by clicking that button over there!</h4>
+                <h3 class="loud-voice">Key Benefits</h3>
+                <ul class="features-grid">
+                    <li><strong>Adaptive Lighting</strong><p>Aura adjusts brightness and color temperature throughout the day to match how you work.</p></li>
+                    <li><strong>Reduce Eye Strain</strong><p>Flicker-free LED light designed for long, focused sessions.</p></li>
+                    <li><strong>Minimal Design</strong><p>A clean aluminum body that fits seamlessly into any workspace.</p></li>
+                    <li><strong>Smart Control (Pro only)</strong><p>Set schedules, focus modes, and wind-down lighting from the Aura app.</p></li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="specs" class="specs">
+            <div class="inner-column">
+                <h3 class="loud-voice">Technical Specifications</h3>
+
+                <div class="specs-grid">
+                    <div class="spec-card">
+                        <h4><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.5"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="M4.93 4.93l1.41 1.41"></path><path d="M17.66 17.66l1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="M4.93 19.07l1.41-1.41"></path><path d="M17.66 6.34l1.41-1.41"></path></svg>Light & Performance</h4>
+                        <ul>
+                            <li>Adjustable color temperature (2700K–5000K)</li>
+                            <li>Up to 800 lumens</li>
+                            <li>Flicker-free LED technology</li>
+                        </ul>
                     </div>
-                    <button class="button">Sign up</button>
+
+                    <div class="spec-card">
+                        <h4><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7l9-4 9 4v10l-9 4-9-4V7z"></path><path d="M12 3v14"></path></svg>Design & Materials</h4>
+                        <ul>
+                            <li>Precision-milled aluminum body</li>
+                            <li>Weighted base for stability</li>
+                            <li>Soft-touch matte finish</li>
+                        </ul>
+                    </div>
+
+                    <div class="spec-card">
+                        <h4><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10V6a1 1 0 012 0v4"></path><path d="M15 10V6a1 1 0 10-2 0v4"></path><path d="M8 14v6a1 1 0 001 1h6a1 1 0 001-1v-6"></path></svg>Power & Compatibility</h4>
+                        <ul>
+                            <li>USB-C powered</li>
+                            <li>Compatible with standard desk setups</li>
+                            <li>iOS & Android app support (Pro)</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>
+
+        <section id="lifestyle" class="lifestyle">
+            <div class="inner-column">
+                <h3 class="loud-voice">Designed for modern workspaces.</h3>
+                <p class="calm-voice">From early mornings to late nights, Aura adapts to your routine. Thoughtfully designed to support focus without distraction.</p>
+            </div>
+        </section>
+
+        <section id="reviews" class="reviews">
+            <div class="inner-column">
+                <h3 class="loud-voice">Reviews</h3>
+                <div class="review-list">
+                    <div class="review">
+                        <div class="rating" aria-hidden="true">
+                            <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .587l3.668 7.431L23.6 9.75l-5.8 5.655L19.335 24 12 20.02 4.665 24l1.533-8.595L.4 9.75l7.932-1.732L12 .587z"/></svg>
+                            <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .587l3.668 7.431L23.6 9.75l-5.8 5.655L19.335 24 12 20.02 4.665 24l1.533-8.595L.4 9.75l7.932-1.732L12 .587z"/></svg>
+                            <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .587l3.668 7.431L23.6 9.75l-5.8 5.655L19.335 24 12 20.02 4.665 24l1.533-8.595L.4 9.75l7.932-1.732L12 .587z"/></svg>
+                            <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .587l3.668 7.431L23.6 9.75l-5.8 5.655L19.335 24 12 20.02 4.665 24l1.533-8.595L.4 9.75l7.932-1.732L12 .587z"/></svg>
+                            <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .587l3.668 7.431L23.6 9.75l-5.8 5.655L19.335 24 12 20.02 4.665 24l1.533-8.595L.4 9.75l7.932-1.732L12 .587z"/></svg>
+                        </div>
+                        <p>“I didn’t realize how much lighting affected my focus until I started using Aura. The automatic adjustments are subtle but noticeable.”</p>
+                        <p class="muted">— Alex M., Verified Purchase</p>
+                    </div>
+
+                    <div class="review">
+                        <div class="rating" aria-hidden="true">
+                            <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .587l3.668 7.431L23.6 9.75l-5.8 5.655L19.335 24 12 20.02 4.665 24l1.533-8.595L.4 9.75l7.932-1.732L12 .587z"/></svg>
+                            <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .587l3.668 7.431L23.6 9.75l-5.8 5.655L19.335 24 12 20.02 4.665 24l1.533-8.595L.4 9.75l7.932-1.732L12 .587z"/></svg>
+                            <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .587l3.668 7.431L23.6 9.75l-5.8 5.655L19.335 24 12 20.02 4.665 24l1.533-8.595L.4 9.75l7.932-1.732L12 .587z"/></svg>
+                            <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .587l3.668 7.431L23.6 9.75l-5.8 5.655L19.335 24 12 20.02 4.665 24l1.533-8.595L.4 9.75l7.932-1.732L12 .587z"/></svg>
+                            <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .587l3.668 7.431L23.6 9.75l-5.8 5.655L19.335 24 12 20.02 4.665 24l1.533-8.595L.4 9.75l7.932-1.732L12 .587z"/></svg>
+                        </div>
+                        <p>“Clean design, solid build, and no glare on my screen. It just works.”</p>
+                        <p class="muted">— Jordan T., Verified Purchase</p>
+                    </div>
+
+                    <div class="review">
+                        <div class="rating" aria-hidden="true">
+                            <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .587l3.668 7.431L23.6 9.75l-5.8 5.655L19.335 24 12 20.02 4.665 24l1.533-8.595L.4 9.75l7.932-1.732L12 .587z"/></svg>
+                            <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .587l3.668 7.431L23.6 9.75l-5.8 5.655L19.335 24 12 20.02 4.665 24l1.533-8.595L.4 9.75l7.932-1.732L12 .587z"/></svg>
+                            <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .587l3.668 7.431L23.6 9.75l-5.8 5.655L19.335 24 12 20.02 4.665 24l1.533-8.595L.4 9.75l7.932-1.732L12 .587z"/></svg>
+                            <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .587l3.668 7.431L23.6 9.75l-5.8 5.655L19.335 24 12 20.02 4.665 24l1.533-8.595L.4 9.75l7.932-1.732L12 .587z"/></svg>
+                        </div>
+                        <p>“Love the look and feel. The Pro features are worth it if you work long hours.”</p>
+                        <p class="muted">— Sam R., Verified Purchase</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="models" class="models">
+            <div class="inner-column">
+                <h3 class="loud-voice">Models</h3>
+                <div class="model-grid">
+                    <div class="model">
+                        <h4>Aura Standard</h4>
+                        <p>Essential lighting controls with a refined, minimal design.</p>
+                    </div>
+                    <div class="model">
+                        <h4>Aura Pro</h4>
+                        <p>Intelligent lighting that adapts automatically to your day.</p>
+                        <p class="muted">Most customers choose Aura Pro for automatic lighting and smart control.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="trust" class="trust">
+            <div class="inner-column">
+                <h3 class="loud-voice">Trust & Policy</h3>
+                <ul class="trust-list">
+                    <li><strong>Free Shipping</strong><p>Delivered within 3–5 business days.</p></li>
+                    <li><strong>30-Day Returns</strong><p>Try Aura risk-free.</p></li>
+                    <li><strong>1-Year Warranty</strong><p>Built to last.</p></li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="cross-sell" class="cross-sell">
+            <div class="inner-column">
+                <h3 class="loud-voice">You might also like</h3>
+                <ul class="cross-list">
+                    <li><strong>Desk Mat</strong><p>A soft, minimal desk mat designed to complement Aura.</p></li>
+                    <li><strong>USB-C Power Hub</strong><p>Keep your workspace powered and clutter-free.</p></li>
+                </ul>
+            </div>
+        </section>
+
     </main>
-    
+
     <footer>
-        <div class="inner-column">
-            <h3>Copyright &copy; The Odin Project 2025</h3>
+        <div class="inner-column footer-row">
+            <div>
+                <strong>Aura</strong> — © 2026 Aura Labs
+            </div>
+            <div class="footer-links">
+                <a href="#">Privacy</a>
+                <a href="#">Support</a>
+                <a href="#">Contact</a>
+            </div>
         </div>
     </footer>
+
+    <script src="main.js"></script>
 </body>
+</html>
