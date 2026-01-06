@@ -1,0 +1,17 @@
+.DS_Store
+node_modules/
+.env
+.DS_Store
+images/.DS_Store
+
+# Optional editor metadata
+.vscode/
+.idea/
+
+# macOS
+.DS_Store
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
