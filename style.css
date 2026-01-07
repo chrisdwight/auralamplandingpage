@@ -266,8 +266,8 @@ header .inner-column {
 }
 
 .products-grid .product-list .product-card .picture {
-    width: 150px;
-    height: 150px; 
+    width: 140px;
+    height: 140px; 
     border-radius: 10px; 
     object-fit: cover; 
 }
@@ -546,7 +546,7 @@ hero-media { display:flex; flex-direction:column; gap:12px; align-items:center; 
     .hero-copy { order: 2; padding:0 10px; text-align:center; }
 
     /* Mobile: limit image height to viewport so image + swatches fit without scrolling */
-    .product-image { max-width:280px; height: 45vh; margin:0 auto; }
+    .product-image { max-width: 99%; height: 36vh; margin:0 auto; }
 
     .purchase-panel { width:100%; align-items:center; padding:8px 12px; }
     .variant-selector { flex-wrap:wrap; justify-content:center; }
@@ -566,5 +566,25 @@ hero-media { display:flex; flex-direction:column; gap:12px; align-items:center; 
 
     .footer-row { flex-direction: column; gap:8px; align-items:center; }
     .footer-links { gap:12px; }
+}
+
+/* Mobile: make images a bit wider and product thumbnails less constrained */
+@media (max-width:700px){
+    /* Allow generic .picture containers to expand a bit more on small screens */
+    .picture { max-width: 99%; }
+
+    /* Make product thumbnails slightly wider on mobile while keeping aspect ratio */
+    .products-grid .product-list .product-card .picture {
+        width: min(95vw, 340px);
+        height: auto;
+        border-radius: 12px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* If product list items use .picture directly, give them more room */
+    .products-grid .product-list .picture {
+        max-width: 99%;
+    }
 }
 
