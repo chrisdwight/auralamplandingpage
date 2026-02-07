@@ -1,2 +1,3 @@
-# auralamplandingpage
-I have created a landing page website for a fictional smart desk lamp to help stay focused during those long hours of work!
+# AuraSmartDeskLamp
+
+This is a landing page I created, it showcases a fictional smart desk lamp designed to automatically adjust it's brightness and warmth throughout the day to help reduce eye strain and keep you focused.
