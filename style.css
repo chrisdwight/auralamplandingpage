@@ -525,6 +525,15 @@ hero-media { display:flex; flex-direction:column; gap:12px; align-items:center; 
     .hero-media{ flex:1; }
     .hero-copy{ flex:1; text-align:left; padding-left:24px; }
     .purchase-panel{ align-items:flex-start; }
+
+    /* Desktop: make cart less cramped — smaller thumbs and more room for text */
+    .cart-panel { width: 360px; }
+    .cart-panel-inner { padding: 14px; }
+    .cart-items { max-height: none; overflow: visible; display:block; }
+    .cart-item { gap: 10px; padding: 10px; }
+    .cart-thumb { width: 40px; height: 40px; flex: 0 0 40px; border-radius: 6px; }
+    /* On desktop, keep footer inline (not sticky) */
+    .cart-footer { position: static; box-shadow: none; margin-top: 12px; }
 }
 
 /* Mobile specific adjustments */
