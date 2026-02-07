@@ -75,6 +75,7 @@
         const cartItemsList = $('#cartItems');
         const cartTotalEl = $('#cartTotal');
         const checkoutBtn = $('#checkoutBtn');
+        const continueBtn = $('#continueBtn');
 
         let previousFocus = null;
         let keydownHandler = null;
@@ -115,7 +116,7 @@
 
             // delegate remove via event listener on the list for clarity
             cartItemsList.querySelectorAll('.remove').forEach(btn=>{
-                btn.addEventListener('click', ()=> removeFromCart(btn.dataset.id));
+                btn.addEventListener('click', (e)=>{ e.stopPropagation(); removeFromCart(btn.dataset.id); });
             });
         }
 
@@ -171,6 +172,7 @@
             // close when clicking outside
             document.addEventListener('click', (e)=>{ const target = e.target; if(cartPanel && cartButton && !cartPanel.contains(target) && !cartButton.contains(target)) closeCart(); });
             if(checkoutBtn) checkoutBtn.addEventListener('click', ()=> alert('Checkout is simulated — no payments configured.'));
+            if(continueBtn) continueBtn.addEventListener('click', ()=> closeCart());
         }
 
         // expose public API
