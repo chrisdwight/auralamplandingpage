@@ -62,7 +62,9 @@
             }, 220);
         }
 
-        return { setProductImage };
+        function getImageUrl(color){ return imageMap[color] || ''; }
+
+        return { setProductImage, getImageUrl };
     })();
 
     /* -----------------------------
@@ -99,7 +101,9 @@
                 cart.items.forEach(item=>{
                     const li = document.createElement('li');
                     li.className = 'cart-item';
+                    const imgSrc = (typeof imageModule !== 'undefined' && imageModule.getImageUrl) ? imageModule.getImageUrl(item.color) : '';
                     li.innerHTML = `
+                        <img src="${imgSrc}" alt="${item.variant} thumbnail" class="cart-thumb" />
                         <div class="meta">
                             <div class="variant">${item.variant === 'pro' ? 'Aura Pro' : 'Aura Standard'}</div>
                             <div class="color">${item.color.replace('-', ' ')}</div>

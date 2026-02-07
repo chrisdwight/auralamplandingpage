@@ -562,11 +562,16 @@ hero-media { display:flex; flex-direction:column; gap:12px; align-items:center; 
 
     /* Improve cart item visibility on mobile */
     .cart-item { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:12px; border-radius:8px; border:1px solid rgba(2,6,23,0.04); background: var(--surface); color: var(--dark); }
+    .cart-thumb { width:56px; height:56px; object-fit:cover; border-radius:8px; flex:0 0 56px; }
     .cart-item .meta { display:flex; flex-direction:column; }
     .cart-item .meta .variant { font-weight:700; font-size:1rem; color:var(--dark); }
     .cart-item .meta .color { font-size:0.95rem; color:var(--muted); }
     .cart-item .qty { font-weight:700; color:var(--dark); }
     .cart-item .remove { background:transparent; border:none; color:#EF4444; font-weight:700; cursor:pointer; }
+
+    /* Keep cart actions visible while scrolling cart items */
+    .cart-footer { position: sticky; bottom: 0; background: var(--surface); padding-top: 12px; padding-bottom: 12px; margin-top: 8px; z-index: 10; box-shadow: 0 -6px 18px rgba(2,6,23,0.06); }
+    .cart-actions { display:flex; gap:8px; align-items:center; }
 
     .footer-row { flex-direction: column; gap:8px; align-items:center; }
     .footer-links { gap:12px; }
