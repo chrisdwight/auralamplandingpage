@@ -81,6 +81,7 @@
 
         let previousFocus = null;
         let keydownHandler = null;
+        let outsideClickHandler = null;
 
         function updateCartCount(){
             const cart = loadCart();
@@ -159,6 +160,9 @@
             }, 0);
             keydownHandler = function(e){ if(e.key === 'Escape') closeCart(); else if(e.key === 'Tab') trapFocus(e); };
             document.addEventListener('keydown', keydownHandler);
+            // bind outside-click handler only while the cart is open
+            outsideClickHandler = function(e){ const target = e.target; if(cartPanel && cartButton && !cartPanel.contains(target) && !cartButton.contains(target)) closeCart(); };
+            document.addEventListener('click', outsideClickHandler);
         }
 
         function closeCart(){
@@ -167,14 +171,14 @@
             cartPanel.setAttribute('aria-modal','false');
             if(keydownHandler) document.removeEventListener('keydown', keydownHandler);
             keydownHandler = null;
+            // unbind outside-click when closing so clicks no longer route through
+            if(outsideClickHandler){ document.removeEventListener('click', outsideClickHandler); outsideClickHandler = null; }
             if(previousFocus && typeof previousFocus.focus === 'function') previousFocus.focus();
             previousFocus = null;
         }
 
         function attachUI(){
             if(cartButton) cartButton.addEventListener('click', e=>{ e.stopPropagation(); const hidden = cartPanel.getAttribute('aria-hidden') === 'true'; if(hidden) openCart(); else closeCart(); });
-            // close when clicking outside
-            document.addEventListener('click', (e)=>{ const target = e.target; if(cartPanel && cartButton && !cartPanel.contains(target) && !cartButton.contains(target)) closeCart(); });
             if(checkoutBtn) checkoutBtn.addEventListener('click', ()=> alert('Checkout is simulated — no payments configured.'));
             if(continueBtn) continueBtn.addEventListener('click', ()=> closeCart());
         }
