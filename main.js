@@ -21,7 +21,10 @@
 
     const focusableSelector = 'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
 
-    function formatPrice(n){ return '$' + n; }
+    function formatPrice(n){
+        return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n);
+    } 
+
 
     function getFocusableElements(container){
         if(!container) return [];
@@ -37,7 +40,7 @@
         catch(e){ return {items: []}; }
     }
     function saveCart(cart){ localStorage.setItem(cartKey, JSON.stringify(cart)); }
-    function calcTotal(cart){ return cart.items.reduce((s,i)=>s + (i.price * i.qty), 0); }
+    function calcTotal(cart){ return cart.items.reduce((s,i)=>s + (i.unitPrice * i.qty), 0); }
 
     /* -----------------------------
        Image Module
@@ -102,15 +105,15 @@
                 cart.items.forEach(item=>{
                     const li = document.createElement('li');
                     li.className = 'cart-item';
-                    const imgSrc = (typeof imageModule !== 'undefined' && imageModule.getImageUrl) ? imageModule.getImageUrl(item.color) : '';
+                    const imgSrc = imageModule.getImageUrl(item.color);
                     li.innerHTML = `
-                        <img src="${imgSrc}" alt="${item.variant} thumbnail" class="cart-thumb" />
+                        <img src="${imgSrc}" alt="${item.name} thumbnail" class="cart-thumb" />
                         <div class="meta">
-                            <div class="variant">${item.variant === 'pro' ? 'Aura Pro' : 'Aura Standard'}</div>
+                            <div class="variant">${item.name}</div>
                             <div class="color">${item.color.replace('-', ' ')}</div>
                         </div>
                         <div style="display:flex;align-items:center;gap:8px;">
-                            <div class="qty">${item.qty} × $${item.price}</div>
+                            <div class="qty">${item.qty} × ${formatPrice(item.unitPrice)}</div>
                             <button class="remove" data-id="${item.id}">Remove</button>
                         </div>
                     `;
@@ -256,7 +259,21 @@
             $all('.color-swatch').forEach(s=> s.addEventListener('click', ()=>{ $all('.color-swatch').forEach(x=>x.classList.remove('selected')); s.classList.add('selected'); currentColor = s.dataset.color; imageModule.setProductImage(currentColor); }));
 
             // add-to-cart
-            if(addBtn){ addBtn.addEventListener('click', ()=>{ const price = prices[currentVariant]; const item = { id: currentVariant + '-' + currentColor, variant: currentVariant, color: currentColor, price, qty: 1 }; cartModule.addToCart(item); addBtn.textContent = 'Added ✓'; setTimeout(()=>{ addBtn.textContent = addBtnText; }, 1200); }); }
+            if(addBtn){ addBtn.addEventListener('click', ()=>{
+                const unitPrice = prices[currentVariant];
+                const displayName = currentVariant === 'pro' ? 'Aura Pro' : 'Aura Standard';
+                const item = {
+                    id: `${currentVariant}-${currentColor}`,
+                    variant: currentVariant,
+                    color: currentColor,
+                    name: displayName,
+                    unitPrice,
+                    qty: 1
+                };
+                cartModule.addToCart(item);
+                addBtn.textContent = 'Added ✓';
+                setTimeout(()=>{ addBtn.textContent = addBtnText; }, 1200);
+            }); }
         }
 
         function updatePrice(){ const p = prices[currentVariant]; const priceEl = $('#price'); if(priceEl) priceEl.textContent = formatPrice(p); const upgradeNote = $('#upgradeNote'); if(upgradeNote){ if(currentVariant === 'standard'){ upgradeNote.setAttribute('aria-hidden','false'); upgradeNote.style.display = 'block'; } else { upgradeNote.setAttribute('aria-hidden','true'); upgradeNote.style.display = 'none'; } } }
