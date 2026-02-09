@@ -44,6 +44,22 @@
     white-space: nowrap;
 }
 
+/* Focus styles: consistent visible outlines for keyboard users */
+:focus-visible {
+    outline: 3px solid rgba(var(--primary-rgb), 0.35);
+    outline-offset: 2px;
+}
+.button:focus-visible,
+.variant:focus-visible,
+.cart button:focus-visible,
+.menu-button:focus-visible,
+.main-nav a:focus-visible,
+.mobile-nav .mobile-link:focus-visible,
+.color-swatch:focus-visible {
+    outline: 3px solid rgba(var(--primary-rgb), 0.35);
+    outline-offset: 3px;
+}
+
 .picture {
     display: block;
     max-width: 541px;
