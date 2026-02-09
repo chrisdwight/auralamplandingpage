@@ -186,8 +186,8 @@
             if(continueBtn) continueBtn.addEventListener('click', ()=> closeCart());
         }
 
-        // expose public API
-        return { attachUI, renderCart, addToCart, updateCartCount };
+        // expose public API (include showCart to allow other modules to open the cart)
+        return { attachUI, renderCart, addToCart, updateCartCount, showCart: openCart };
     })();
 
     /* -----------------------------
@@ -270,7 +270,13 @@
                     unitPrice,
                     qty: 1
                 };
+                // add item to cart (snapshot unitPrice + name)
                 cartModule.addToCart(item);
+                // update cart UI immediately and open the cart so the user sees confirmation
+                cartModule.renderCart();
+                if(typeof cartModule.showCart === 'function') cartModule.showCart();
+
+                // keep the small button feedback as well
                 addBtn.textContent = 'Added ✓';
                 setTimeout(()=>{ addBtn.textContent = addBtnText; }, 1200);
             }); }
