@@ -438,7 +438,7 @@ footer h3 {
 .cart button { background: rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04); padding:8px 12px; border-radius:12px; color:var(--white); display:flex; align-items:center; gap:8px; }
 .cart button .badge { margin-left:6px; background:#F97316; }
 .cart-panel { position:absolute; right:0; top:calc(100% + 10px); width:320px; background:var(--surface); border-radius:12px; box-shadow:0 18px 40px rgba(2,6,23,0.12); border:1px solid rgba(2,6,23,0.04); display:none; z-index:60; }
-.cart-panel[aria-hidden="false"] { display:block; }
+.cart-panel[aria-hidden="false"] { display:block; animation: cartIn 160ms ease both; box-shadow: var(--shadow-md), 0 22px 48px rgba(2,6,23,0.14); }
 .cart-panel-inner { padding:12px; }
 .cart-panel h4 { margin:0 0 8px 0; font-size:1rem; }
 .cart-items { list-style:none; margin:0; padding:0; max-height:260px; overflow:auto; display:flex; flex-direction:column; gap:8px; }
@@ -555,6 +555,16 @@ footer h3 {
 
     /* Desktop: make cart less cramped — smaller thumbs and more room for text */
     .cart-panel { width: 360px; }
+    /* Desktop backdrop using :has() to avoid touching HTML; falls back gracefully on browsers without :has() */
+    body:has(.cart-panel[aria-hidden="false"])::before{
+        content: '';
+        position: fixed;
+        inset: 0;
+        background: rgba(var(--text-rgb), 0.28);
+        backdrop-filter: blur(2px);
+        z-index: 50;
+        transition: opacity 180ms ease;
+    }
     .cart-panel-inner { padding: 14px; }
     .cart-items { max-height: none; overflow: visible; display:block; }
     .cart-item { gap: 10px; padding: 10px; }
@@ -570,6 +580,11 @@ footer h3 {
     }
     /* On desktop, keep footer inline (not sticky) */
     .cart-footer { position: static; box-shadow: none; margin-top: 12px; }
+}
+
+@keyframes cartIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* Mobile specific adjustments */
